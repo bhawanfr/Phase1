@@ -15,6 +15,7 @@ public class mainScreen {
     }
 
     public static SortFiles sortFile = new SortFiles(getRootDir());
+    public static CRUDOperation crudOperation = new CRUDOperation(getRootDir());
     public static void mainScreenDisplay() {
         System.out.println(" 1. Sort files in ascending order ");
         System.out.println(" 2. CRUD Operations on files ");
@@ -36,8 +37,20 @@ public class mainScreen {
         }
     }
 
-    public static void CRUDSelect(){
-
+    public static void CRUDSelect(int choice)
+    {
+        switch(choice)
+        {
+            case 1 -> {
+                crudOperation.addFile();
+            }
+            case 2 -> {
+                crudOperation.deleteFile();
+            }
+            case 3 -> {
+                System.out.println(crudOperation.searchFile());
+            }
+        }
     }
 
     public static int checkIntegerInput(Scanner sc)
@@ -91,6 +104,7 @@ public class mainScreen {
             if(secondCheck)
             {
                 // crudClass
+                CRUDSelect(choice);
             }
         }
     }
@@ -110,7 +124,10 @@ public class mainScreen {
             {
                 secondCheck = checkRangeInput(choice, 3);
             }
-            optionSelect(choice, sc);
+            if(secondCheck)
+            {
+                optionSelect(choice, sc);
+            }
         }
     }
 }
