@@ -13,7 +13,9 @@ public class mainScreen {
     public static String getRootDir() {
         return rootDir;
     }
-    public static void mainScreen() {
+
+    public static SortFiles sortFile = new SortFiles(getRootDir());
+    public static void mainScreenDisplay() {
         System.out.println(" 1. Sort files in ascending order ");
         System.out.println(" 2. CRUD Operations on files ");
         System.out.println(" 3. Exit Application ");
@@ -23,7 +25,7 @@ public class mainScreen {
     {
         switch (choice) {
             case 1 -> {
-                // sorting class
+                sortFile.printSortedFile();
             }
             case 2 -> {
                 crudScreen(sc);
@@ -38,31 +40,37 @@ public class mainScreen {
 
     }
 
-    public static int checkInput(Scanner sc, int limit)
+    public static int checkIntegerInput(Scanner sc)
     {
         int choice = -1;
         try {
             choice = Integer.parseInt(sc.nextLine());
+            return choice;
         }
         catch (NumberFormatException e)
         {
             System.out.println(" Please Enter Integer Choice");
             System.out.println();
         }
+        return -1;
+    }
+
+    public static boolean checkRangeInput(int choice, int limit)
+    {
         try
         {
             if(choice <= 0 || choice > limit)
             {
                 throw new InvalidRangeException(" Please Enter Valid Option");
             }
-            return choice;
+            return true;
         }
         catch (InvalidRangeException e)
         {
             System.out.println(e.getMessage());
             System.out.println();
         }
-        return -1;
+        return false;
     }
     public static void crudScreen(Scanner sc)
     {
@@ -74,27 +82,35 @@ public class mainScreen {
             System.out.println(" 2. Delete File from Directory");
             System.out.println(" 3. Search File from Directory");
             System.out.println(" Enter Choice : ");
-            int choice = checkInput(sc, 4);
-            if(choice != -1)
+            int choice = checkIntegerInput(sc);
+            boolean secondCheck = checkRangeInput(choice, 4);
+            if(choice > 0)
             {
-                // crud switch case
+                secondCheck = checkRangeInput(choice, 4);
+            }
+            if(secondCheck)
+            {
+                // crudClass
             }
         }
     }
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println(" Welcome To " + getAppName());
-        System.out.println(" Developed By " + getDevName());
+
         while(true)
         {
-            mainScreen();
-            int choice = checkInput(sc, 3);
-            if(choice != -1)
+            System.out.println();
+            System.out.println(" Welcome To " + getAppName());
+            System.out.println(" Developed By " + getDevName());
+            mainScreenDisplay();
+            int choice = checkIntegerInput(sc);
+            boolean secondCheck = false;
+            if(choice > 0)
             {
-                optionSelect(choice, sc);
+                secondCheck = checkRangeInput(choice, 3);
             }
-
+            optionSelect(choice, sc);
         }
     }
 }
