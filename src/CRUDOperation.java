@@ -42,7 +42,7 @@ public class CRUDOperation {
         System.out.println(" Please Enter Name of File : ");
         String fileName = sc.nextLine();
         try {
-            File temp = new File(rootPath + fileName + ".txt");
+            File temp = new File(rootPath + "/" + fileName);
             if(temp.createNewFile())
             {
                 System.out.println(" Successfully Created file");
@@ -64,7 +64,7 @@ public class CRUDOperation {
         System.out.println(" Please Enter Name of File : ");
         String fileName = sc.nextLine();
         try {
-            File temp = new File(rootPath + fileName);
+            File temp = new File(rootPath +  "/" + fileName);
             if(temp.delete())
             {
                 System.out.println(" Successfully Deleted file");
@@ -79,7 +79,7 @@ public class CRUDOperation {
             System.out.println(" Error has Occurred Try Again");
         }
     }
-    public static boolean searchFile() {
+    public static void searchFile() {
         Scanner sc = new Scanner(System.in);
         System.out.println();
         System.out.println(" Please Enter Name of File : ");
@@ -87,6 +87,13 @@ public class CRUDOperation {
         String[] contents = directoryPath.list();
         Arrays.sort(contents);
         boolean search = binarySearch(0, contents.length - 1, contents, fileName);
-        return search;
+        if(search)
+        {
+            System.out.println(" File Found and Exists");
+        }
+        else
+        {
+            System.out.println(" File not found");
+        }
     }
 }

@@ -48,7 +48,7 @@ public class mainScreen {
                 crudOperation.deleteFile();
             }
             case 3 -> {
-                System.out.println(crudOperation.searchFile());
+                crudOperation.searchFile();
             }
         }
     }
@@ -94,12 +94,17 @@ public class mainScreen {
             System.out.println(" 1. Add File to Directory");
             System.out.println(" 2. Delete File from Directory");
             System.out.println(" 3. Search File from Directory");
+            System.out.println(" 4. Back to Main Menu");
             System.out.println(" Enter Choice : ");
             int choice = checkIntegerInput(sc);
             boolean secondCheck = checkRangeInput(choice, 4);
             if(choice > 0)
             {
                 secondCheck = checkRangeInput(choice, 4);
+            }
+            if(choice == 4)
+            {
+                break;
             }
             if(secondCheck)
             {
